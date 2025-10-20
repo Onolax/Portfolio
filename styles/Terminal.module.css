@@ -55,6 +55,13 @@
   font-size: 13px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title svg {
+  margin-right: 4px; /* extra safety spacing for older icon renders */
 }
 
 .actions button {
