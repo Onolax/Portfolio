@@ -6,6 +6,7 @@ import Sidebar from '@/components/Sidebar';
 import Explorer from '@/components/Explorer';
 import Bottombar from '@/components/Bottombar';
 import Tabsbar from '@/components/Tabsbar';
+import { TabProvider } from '@/components/TabContext';
 
 import styles from '@/styles/Layout.module.css';
 
@@ -26,17 +27,19 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Titlebar />
-      <div className={styles.main}>
-        <Sidebar />
-        <Explorer />
-        <div style={{ width: '100%' }}>
-          <Tabsbar />
-          <main id="main-editor" className={styles.content}>
-            {children}
-          </main>
+      <TabProvider>
+        <div className={styles.main}>
+          <Sidebar />
+          <Explorer />
+          <div style={{ width: '100%' }}>
+            <Tabsbar />
+            <main id="main-editor" className={styles.content}>
+              {children}
+            </main>
+          </div>
         </div>
-      </div>
-      <Bottombar />
+        <Bottombar />
+      </TabProvider>
     </>
   );
 };

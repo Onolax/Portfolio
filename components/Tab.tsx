@@ -1,6 +1,5 @@
-import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { useTabs } from './TabContext';
 
 import styles from '@/styles/Tab.module.css';
 
@@ -11,17 +10,33 @@ interface TabProps {
 }
 
 const Tab = ({ icon, filename, path }: TabProps) => {
-  const router = useRouter();
+  const { activePath, setActive, closeTab, tabs } = useTabs();
+
+  const isActive = activePath === path;
 
   return (
-    <Link href={path}>
-      <div
-        className={`${styles.tab} ${router.pathname === path && styles.active}`}
+    <div className={`${styles.tab} ${isActive ? styles.active : ''}`}>
+      <button
+        className={styles.tabButton}
+        onClick={() => setActive(path)}
+        aria-label={`Open ${filename}`}
       >
         <Image src={icon} alt={filename} height={18} width={18} />
         <p>{filename}</p>
-      </div>
-    </Link>
+      </button>
+      {!(tabs.length === 0 && path === '/') && path !== '/' && (
+        <button
+          className={styles.closeButton}
+          onClick={(e) => {
+            e.stopPropagation();
+            closeTab(path);
+          }}
+          aria-label={`Close ${filename}`}
+        >
+          ×
+        </button>
+      )}
+    </div>
   );
 };
 
