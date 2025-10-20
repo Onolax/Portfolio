@@ -14,9 +14,9 @@ export default function HomePage() {
       type: 'variable',
     },
     { code: '  const developerInfo = {', type: 'variable' },
-    { code: "    name: 'Nitin Ranganath',", type: 'array-item' },
-    { code: "    role: 'Full Stack Developer',", type: 'array-item' },
-    { code: "    bio: 'Building modern web experiences'", type: 'array-item' },
+    { code: "    name: 'Manvendra Singh',", type: 'array-item' },
+    { code: "    role: 'Backend Developer',", type: 'array-item' },
+    { code: "    bio: 'Building Scalable AI Agents'", type: 'array-item' },
     { code: '  };', type: 'array-end' },
     { code: '', type: 'blank' },
     { code: '  useEffect(() => {', type: 'nested-function' },
@@ -91,14 +91,14 @@ export default function HomePage() {
 
         <div className={styles.infoSection}>
           <h1 className={styles.developerName}>
-            Nitin <span className={styles.accentText}>Ranganath</span>
+            Manvendra <span className={styles.accentText}>Singh</span>
           </h1>
 
-          <div className={styles.developerRole}>Full Stack Web Developer</div>
+          <div className={styles.developerRole}>Backend Developer</div>
 
           <p className={styles.bio}>
-            I build elegant, responsive web applications with modern
-            technologies. Focused on clean code and intuitive user experiences.
+            I build powerful and scalable AI Agent based solutions to automate
+            business workflows and enhance operational efficiency.
           </p>
 
           <div className={styles.actionLinks}>

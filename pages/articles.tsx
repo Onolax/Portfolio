@@ -15,14 +15,14 @@ const ArticlesPage = ({ articles }: ArticlesPageProps) => {
       <p className={styles.pageSubtitle}>
         Recent posts from{' '}
         <a
-          href="https://dev.to/itsnitinr"
+          href="https://dev.to/Onolax"
           target="_blank"
           rel="noopener"
           className={styles.underline}
         >
           dev.to
         </a>{' '}
-        where I share insights and tutorials about web development.
+        where I share insights and tutorials about programming.
       </p>
       <div className={styles.container}>
         {articles.map((article) => (
