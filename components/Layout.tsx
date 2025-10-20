@@ -5,8 +5,10 @@ import Titlebar from '@/components/Titlebar';
 import Sidebar from '@/components/Sidebar';
 import Explorer from '@/components/Explorer';
 import Bottombar from '@/components/Bottombar';
+import Terminal from '@/components/Terminal';
 import Tabsbar from '@/components/Tabsbar';
 import { TabProvider } from '@/components/TabContext';
+import { TerminalProvider } from '@/components/TerminalContext';
 
 import styles from '@/styles/Layout.module.css';
 
@@ -26,20 +28,23 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <>
+  <TerminalProvider>
+  <TabProvider>
       <Titlebar />
-      <TabProvider>
-        <div className={styles.main}>
-          <Sidebar />
-          <Explorer />
-          <div style={{ width: '100%' }}>
-            <Tabsbar />
-            <main id="main-editor" className={styles.content}>
-              {children}
-            </main>
-          </div>
+      <div className={styles.main}>
+        <Sidebar />
+        <Explorer />
+        <div className={styles.editor}>
+          <Tabsbar />
+          <main id="main-editor" className={styles.content}>
+            {children}
+          </main>
+          <Terminal />
         </div>
-        <Bottombar />
-      </TabProvider>
+      </div>
+      <Bottombar />
+    </TabProvider>
+  </TerminalProvider>
     </>
   );
 };
