@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTabs } from './TabContext';
 import {
   VscAccount,
   VscSettings,
@@ -27,6 +28,7 @@ const sidebarBottomItems = [
 
 const Sidebar = () => {
   const router = useRouter();
+  const { openTab } = useTabs();
 
   return (
     <aside className={styles.sidebar}>
@@ -34,6 +36,11 @@ const Sidebar = () => {
         {sidebarTopItems.map(({ Icon, path }) => (
           <Link href={path} key={path}>
             <div
+              role="button"
+              onClick={(e) => {
+                e.preventDefault();
+                openTab(path);
+              }}
               className={`${styles.iconContainer} ${
                 router.pathname === path && styles.active
               }`}
@@ -55,14 +62,22 @@ const Sidebar = () => {
         {sidebarBottomItems.map(({ Icon, path }) => (
           <div className={styles.iconContainer} key={path}>
             <Link href={path}>
-              <Icon
-                fill={
-                  router.pathname === path
-                    ? 'rgb(225, 228, 232)'
-                    : 'rgb(106, 115, 125)'
-                }
-                className={styles.icon}
-              />
+              <div
+                role="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openTab(path);
+                }}
+              >
+                <Icon
+                  fill={
+                    router.pathname === path
+                      ? 'rgb(225, 228, 232)'
+                      : 'rgb(106, 115, 125)'
+                  }
+                  className={styles.icon}
+                />
+              </div>
             </Link>
           </div>
         ))}
