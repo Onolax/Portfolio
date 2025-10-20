@@ -28,9 +28,7 @@ const pathMeta: Record<string, { filename: string; icon: string }> = {
 
 export const TabProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const [tabs, setTabs] = useState<Tab[]>([
-    { path: '/', filename: pathMeta['/'].filename, icon: pathMeta['/'].icon },
-  ]);
+  const [tabs, setTabs] = useState<Tab[]>([]);
   const [activePath, setActivePath] = useState<string>(router.pathname || '/');
 
   useEffect(() => {
@@ -38,6 +36,11 @@ export const TabProvider = ({ children }: { children: React.ReactNode }) => {
     const p = router.pathname;
     const meta = pathMeta[p];
     if (!meta) return;
+    if (p === '/') {
+      // do not auto-open home as a real tab; show synthetic home when tabs are empty
+      setActivePath('/');
+      return;
+    }
     setTabs((prev) => {
       if (prev.find((t) => t.path === p)) return prev;
       return [...prev, { path: p, filename: meta.filename, icon: meta.icon }];
@@ -61,10 +64,9 @@ export const TabProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const closeTab = (path: string) => {
-    if (path === '/') return; // don't close home
     setTabs((prev) => prev.filter((t) => t.path !== path));
     if (activePath === path) {
-      // navigate to the last tab or home
+      // navigate to the last tab or synthetic home (no tabs)
       setTimeout(() => {
         setTabs((prev) => {
           const after = prev.filter((t) => t.path !== path);
