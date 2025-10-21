@@ -6,6 +6,13 @@
   overflow-x: hidden;
 }
 
+.editor {
+  position: relative; /* anchor for terminal absolute positioning */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .content {
   padding: 2rem;
   color: var(--text-color);
@@ -17,6 +24,7 @@
   overflow-x: hidden;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .content {
