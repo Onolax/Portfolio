@@ -169,6 +169,44 @@
   color: var(--text-color, #ffffff);
   outline: none;
   flex: 1;
+  font-family: monospace;
+  font-size: 13px;
+  padding-left: 0;
+  margin: 0;
+  caret-color: var(--text-color, #ffffff);
 }
 
 .line { color: var(--text-color, #ffffff); }
+
+/* input wrapper for custom caret */
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inputMirror {
+  position: absolute;
+  visibility: hidden;
+  white-space: pre;
+  font-family: monospace;
+  font-size: 13px;
+  padding-left: 2px;
+}
+
+/* hide native caret by making input caret transparent, keep selection visible */
+.blockCursor {
+  display: none; /* hide custom block cursor: use native caret for reliability */
+}
+
+.blockCursor {
+  position: absolute;
+  top: 8px; /* aligns visually with input text baseline */
+  width: 10px;
+  background: #fff; /* white block cursor */
+  animation: blink 1s steps(2, start) infinite;
+  pointer-events: none;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}

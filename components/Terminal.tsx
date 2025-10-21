@@ -86,6 +86,11 @@ const Terminal = () => {
     };
   }, []);
 
+  // focus input when terminal is shown or active instance changes
+  useEffect(() => {
+    if (visible) inputRef.current?.focus();
+  }, [visible, activeId]);
+
   return (
       <div className={`${styles.terminal} ${visible ? styles.open : styles.closed}`} style={{ height }}>
       <div className={styles.header}>
@@ -151,7 +156,8 @@ const Terminal = () => {
 
       <div className={styles.inputRow}>
         <span className={styles.prompt}>$</span>
-        <input
+        <div className={styles.inputWrapper}>
+          <input
           ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -171,6 +177,8 @@ const Terminal = () => {
           className={styles.input}
           aria-label="Terminal input"
         />
+          {/* native input caret is used; no mirror or custom block cursor needed */}
+        </div>
       </div>
     </div>
   );
