@@ -35,8 +35,10 @@ const makeInstance = (n: number): TerminalInstance => ({
 
 export const TerminalProvider = ({ children }: { children: React.ReactNode }) => {
   const [visible, setVisible] = useState(true);
-  const [instances, setInstances] = useState<TerminalInstance[]>(() => [makeInstance(1)]);
-  const [activeId, setActiveId] = useState<string | undefined>(instances[0].id);
+  // create initial instances once and use it for both state inits to avoid undefined access
+  const initialInstances = [makeInstance(1)];
+  const [instances, setInstances] = useState<TerminalInstance[]>(initialInstances);
+  const [activeId, setActiveId] = useState<string | undefined>(initialInstances[0]?.id);
 
   const show = () => setVisible(true);
   const hide = () => setVisible(false);
@@ -56,9 +58,11 @@ export const TerminalProvider = ({ children }: { children: React.ReactNode }) =>
     setInstances((prev) => {
       const after = prev.filter((p) => p.id !== id);
       if (after.length === 0) {
-        // leave an empty array and show home in main area
+        // no instances left: clear active and hide terminal
         setActiveId(undefined);
+        setVisible(false);
       } else if (id === activeId) {
+        // if the closed instance was active, move focus to the last instance
         setActiveId(after[after.length - 1].id);
       }
       return after;
